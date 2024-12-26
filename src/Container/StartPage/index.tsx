@@ -3,7 +3,7 @@ import StartPageView from "../../Views/StartPage";
 
 const StartPageContainer = () => {
   return (
-    <div>
+    <div className="cloud-background">
       <StartPageView />
     </div>
   );

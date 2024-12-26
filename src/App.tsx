@@ -1,13 +1,15 @@
-import { useState } from "react";
 import "./App.css";
-import { Button } from "flowbite-react";
+import ResultPage from "./Pages/ResultPage";
 import StartPage from "./Pages/StartPage";
+import TutorialPage from "./Pages/TutorialPage";
 
 function App() {
   return (
     <div className="App">
       <div>
-        <StartPage />
+        {/* <StartPage /> */}
+        {/* <TutorialPage /> */}
+        <ResultPage />
       </div>
     </div>
   );

@@ -30,7 +30,7 @@ const StartPageView: FC<StartViewProps> = ({ continueHandler }) => {
         </div>
       </motion.div>
       <motion.div
-        initial={{ y: "100vh", opacity: 1 }} // Start from the bottom, fully visible
+        initial={{ y: "80vh", opacity: 1 }} // Start from the bottom, fully visible
         animate={{ y: "-15vh" }}
         exit={{ y: "100vh", opacity: 1 }}
         transition={{ duration: 5, ease: "easeInOut" }}

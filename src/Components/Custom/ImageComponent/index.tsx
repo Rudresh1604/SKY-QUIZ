@@ -1,10 +1,11 @@
 import React from "react";
 
 interface ImageProps {
-  className?: any;
+  className?: string;
   onClick?: React.MouseEventHandler<HTMLImageElement>;
-  src: any;
-  alt?: any;
+  src: string;
+  alt?: string;
+  style?: React.CSSProperties;
 }
 
 const ImageComponent: React.FC<ImageProps> = ({
@@ -12,6 +13,7 @@ const ImageComponent: React.FC<ImageProps> = ({
   className,
   src,
   alt,
+  style,
 }) => {
   return (
     <div>
@@ -20,7 +22,7 @@ const ImageComponent: React.FC<ImageProps> = ({
         className={className}
         src={src}
         alt={alt}
-        srcSet=""
+        style={style}
       />
     </div>
   );

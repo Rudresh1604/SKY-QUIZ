@@ -1,14 +1,29 @@
 import React from "react";
 import HeadingText from "../../Components/Base/Heading";
 import ImageComponent from "../../Components/Custom/ImageComponent";
+import { easeIn, motion } from "framer-motion";
 
-const TutorialPageView: React.FC = () => {
+interface TutorialViewProps {
+  continueHandler: React.MouseEventHandler;
+}
+
+const TutorialPageView: React.FC<TutorialViewProps> = ({ continueHandler }) => {
   return (
     <div className="tutorial-container ">
-      <div className="tutorial-heading-container">
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 3, ease: easeIn }}
+        className="tutorial-heading-container"
+      >
         <HeadingText text="Tutorial" className="text-center" />
-      </div>
-      <div className="tutorial-content">
+      </motion.div>
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 2, ease: easeIn }}
+        className="tutorial-content"
+      >
         <div className="tutorial-content-direction">
           <ImageComponent
             src="/src/Resources/Images/upicon.png"
@@ -53,12 +68,18 @@ const TutorialPageView: React.FC = () => {
             className="font-normal text-2xl mt-2 text-white w-full text-center"
           />
         </div>
-      </div>
-
-      <ImageComponent
-        src="/src/Resources/Images/taptcontinue.png"
-        className="tutorial-tap"
-      />
+      </motion.div>
+      <motion.div
+        initial={{ y: "-10vh", opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 2, ease: "easeInOut" }}
+      >
+        <ImageComponent
+          src="/src/Resources/Images/taptcontinue.png"
+          className="tutorial-tap"
+          onClick={continueHandler}
+        />
+      </motion.div>
     </div>
   );
 };

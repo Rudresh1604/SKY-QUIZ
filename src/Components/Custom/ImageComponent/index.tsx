@@ -2,14 +2,26 @@ import React from "react";
 
 interface ImageProps {
   className?: any;
+  onClick?: React.MouseEventHandler<HTMLImageElement>;
   src: any;
   alt?: any;
 }
 
-const ImageComponent: React.FC<ImageProps> = ({ className, src, alt }) => {
+const ImageComponent: React.FC<ImageProps> = ({
+  onClick,
+  className,
+  src,
+  alt,
+}) => {
   return (
     <div>
-      <img className={className} src={src} alt={alt} srcSet="" />
+      <img
+        onClick={onClick}
+        className={className}
+        src={src}
+        alt={alt}
+        srcSet=""
+      />
     </div>
   );
 };

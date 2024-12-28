@@ -32,7 +32,21 @@ const ResultPageView: React.FC = () => {
           />
         </div>
         <div className="options">
-          <OptionHolder />
+          <OptionHolder
+            optionColor="#FFCC3E"
+            optionName="A"
+            optionContent="Delhi"
+          />
+          <OptionHolder
+            optionColor="#FFCC3E"
+            optionName="A"
+            optionContent="Delhi"
+          />
+          <OptionHolder
+            optionColor="#FFCC3E"
+            optionName="A"
+            optionContent="Delhi"
+          />
         </div>
       </div>
     </div>

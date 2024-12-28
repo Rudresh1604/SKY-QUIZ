@@ -1,9 +1,21 @@
+import { FC } from "react";
 import ImageComponent from "../../Components/Custom/ImageComponent";
+import { motion } from "framer-motion";
 
-const StartPageView = () => {
+interface StartViewProps {
+  continueHandler: React.MouseEventHandler;
+}
+
+const StartPageView: FC<StartViewProps> = ({ continueHandler }) => {
   return (
     <div className="sky-quiz-container flex flex-col justify-center">
-      <div className="flex flex-col justify-center sky-quiz-start">
+      <motion.div
+        initial={{ x: "-100%", display: "none" }}
+        animate={{ display: "block", x: 0 }}
+        exit={{ x: "100%" }}
+        transition={{ duration: 1.5 }}
+        className="flex flex-col justify-center sky-quiz-start"
+      >
         <ImageComponent
           src="src\Resources\Images\Sky Quiz.png"
           className="w-full h-full px-3"
@@ -16,11 +28,19 @@ const StartPageView = () => {
             alt="Bird Image"
           />
         </div>
-      </div>
-      <ImageComponent
-        src="/src/Resources/Images/taptcontinue.png"
-        className="px-7 tap"
-      />
+      </motion.div>
+      <motion.div
+        initial={{ y: "100vh", opacity: 1 }} // Start from the bottom, fully visible
+        animate={{ y: "-15vh" }}
+        exit={{ y: "100vh", opacity: 1 }}
+        transition={{ duration: 5, ease: "easeInOut" }}
+      >
+        <ImageComponent
+          src="/src/Resources/Images/taptcontinue.png"
+          className="px-7 tap"
+          onClick={continueHandler}
+        />
+      </motion.div>
     </div>
   );
 };

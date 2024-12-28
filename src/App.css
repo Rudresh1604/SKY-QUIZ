@@ -28,7 +28,9 @@
   width: 352px;
   height: 82px;
   position: absolute;
-  top: 652px;
+  /* top: 652px;
+   */
+  top: 550px;
   left: 40px;
 }
 .tutorial-container {
@@ -165,3 +167,17 @@
   position: absolute;
   top: 140px;
 }
+
+.options {
+  position: absolute;
+  left: 185px;
+  top: 0px;
+}
+
+/* .options {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+} */

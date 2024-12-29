@@ -2,49 +2,102 @@ import React, { useEffect, useState } from "react";
 import ResultPageView from "../../Views/ResultPage";
 
 const ResultPageContainer: React.FC = () => {
-  const [birdTop, setBirdTop] = useState(140);
+  const [birdTop, setBirdTop] = useState(173);
   const [birdLeft, setBirdLeft] = useState(0);
   const [count, setCount] = useState(0);
+  const [score, setScore] = useState(0);
+  let newBirdTop = 173;
+  const [isAnswerVisible, setAnswerVisible] = useState(false);
+  const options = [
+    {
+      name: "A",
+      top: 70,
+      optionColor: "#FFCC3E",
+      optionContent: "Delhi",
+      isCorrect: true,
+      background: "red",
+    },
+    {
+      name: "B",
+      top: 173,
+      optionColor: "#FFCC3E",
+      optionContent: "Mumbai",
+
+      isCorrect: false,
+      background: "green",
+    },
+    {
+      name: "C",
+      top: 266,
+      optionColor: "#FFCC3E",
+      optionContent: "China",
+      isCorrect: false,
+      background: "red",
+    },
+  ];
+
+  const checkPosition = () => {
+    for (const option of options) {
+      if (option.top == newBirdTop) {
+        console.log(option);
+        return option;
+      }
+    }
+    return null;
+  };
+
   const handleKeyPress = (event: KeyboardEvent) => {
+    if (isAnswerVisible) {
+      return;
+    }
     if (event.key === "ArrowUp") {
-      console.log("Up key");
-      // top pos 70px
-      if (count == 0) {
-        setCount(1);
-        setBirdTop(70);
-        console.log(count);
-      } else if (count == -1) {
-        setCount(count + 1);
-        setBirdTop(140);
-      } else if (count > 1 || count < -1) {
-        setCount(0);
-        setBirdTop(140);
-      }
-      console.log(count);
-      // if (birdTop >= 70 && birdTop <= 266) {
-      //   setBirdTop(birdTop - 70);
-      // }
+      setCount((prevCount) => {
+        if (prevCount === 0) {
+          setBirdTop(70);
+          newBirdTop = 70;
+          return 1;
+        } else if (prevCount === -1) {
+          newBirdTop = 173;
+          setBirdTop(173);
+          return 0;
+        } else {
+          newBirdTop = 173;
+          setBirdTop(173);
+          return 0;
+        }
+      });
     } else if (event.key === "ArrowDown") {
-      // down pos 266px
-      console.log(count);
-
-      if (count == 0) {
-        setCount(-1);
-        setBirdTop(266);
-      } else if (count == 1) {
-        setCount(0);
-        setBirdTop(140);
-      } else if (count > 1 || count < -1) {
-        setCount(0);
-        setBirdTop(140);
-      }
-
-      console.log("Down key");
-      console.log(count);
+      setCount((prevCount) => {
+        if (prevCount === 0) {
+          setBirdTop(266);
+          newBirdTop = 266;
+          return -1;
+        } else if (prevCount === 1) {
+          newBirdTop = 173;
+          setBirdTop(173);
+          return 0;
+        } else {
+          newBirdTop = 173;
+          setBirdTop(173);
+          return 0;
+        }
+      });
     } else if (event.key === "ArrowRight") {
-      // left pos is 158px
-      setBirdLeft(100);
-      console.log("Right key");
+      setBirdLeft(158);
+      const option = checkPosition();
+
+      if (option) {
+        if (option.isCorrect == true) {
+          setScore((prevScore) => {
+            const newScore = prevScore + 1;
+            console.log("Updated Score:", newScore);
+            return newScore;
+          });
+        }
+        setTimeout(() => {
+          setAnswerVisible(true);
+        }, 500);
+      }
     }
   };
 
@@ -57,9 +110,16 @@ const ResultPageContainer: React.FC = () => {
       window.removeEventListener("keydown", handleKeyPress);
     };
   }, []);
+
   return (
     <div className="cloud-background-result">
-      <ResultPageView birdLeft={birdLeft} birdTop={birdTop} />
+      <ResultPageView
+        options={options}
+        isAnswerVisible={isAnswerVisible}
+        setAnswerVisible={setAnswerVisible}
+        birdLeft={birdLeft}
+        birdTop={birdTop}
+      />
     </div>
   );
 };

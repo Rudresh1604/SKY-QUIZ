@@ -4,16 +4,23 @@ import HintComponent from "../../Components/Custom/HintComponent";
 import HeadingText from "../../Components/Base/Heading";
 import ImageComponent from "../../Components/Custom/ImageComponent";
 import OptionHolder from "../../Components/Custom/OptionHolder";
+import { motion } from "framer-motion";
 
 interface ResultPageViewProps {
   handleKeyPress?: (event: KeyboardEvent) => void;
   birdTop: number;
   birdLeft: number;
+  options?: any;
+  isAnswerVisible?: boolean;
+  setAnswerVisible?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const ResultPageView: React.FC<ResultPageViewProps> = ({
   birdLeft,
   birdTop,
+  options,
+  isAnswerVisible,
+  setAnswerVisible,
 }) => {
   return (
     <div className="mt-5">
@@ -21,17 +28,41 @@ const ResultPageView: React.FC<ResultPageViewProps> = ({
         <CoinHolder coin="22" /> <HintComponent />
       </div>
       <div className="cloud-quiz-container">
-        <div className="relative bg-[#1e3848] w-72 h-56 rounded-3xl">
+        {/* Cloud Icon (Stationary and Above the Background) */}
+        <ImageComponent
+          src="/src/Resources/Images/cloudIcon.png"
+          className="cloud-content z-10"
+        />
+
+        <motion.div
+          className="absolute bg-[#1e3848] w-72 h-56 rounded-3xl z-0"
+          initial={{ scale: 0.1, x: "20%", y: "50%", opacity: 0 }}
+          animate={
+            isAnswerVisible
+              ? { scale: 0.2, x: "20%", y: "50%", opacity: 0 }
+              : { scale: 1, x: 0, y: "0%", opacity: 1 }
+          }
+          transition={{
+            duration: 5,
+            ease: "easeInOut",
+          }}
+          style={{
+            top: -1,
+            left: 70,
+          }}
+          onAnimationComplete={() => {
+            if (isAnswerVisible) {
+              setAnswerVisible(false);
+            }
+          }}
+        >
           <HeadingText
             text="Where is India Located?"
             className="text-2xl text-white absolute left-2 top-24 text-center font-bold"
           />
-          <ImageComponent
-            src="/src/Resources/Images/cloudIcon.png"
-            className="cloud-content"
-          />
-        </div>
+        </motion.div>
       </div>
+      ;
       <div className="quiz-options">
         <div className="left-bird">
           <ImageComponent
@@ -40,26 +71,25 @@ const ResultPageView: React.FC<ResultPageViewProps> = ({
             style={{
               top: `${birdTop}px`,
               left: `${birdLeft}px`,
-              transition: "top 0.3s, left 0.3s",
+              transition: "top 0.5s, left 0.5s",
             }}
           />
         </div>
         <div className="options">
-          <OptionHolder
-            optionColor="#FFCC3E"
-            optionName="A"
-            optionContent="Delhi"
-          />
-          <OptionHolder
-            optionColor="#FFCC3E"
-            optionName="A"
-            optionContent="Delhi"
-          />
-          <OptionHolder
-            optionColor="#FFCC3E"
-            optionName="A"
-            optionContent="Delhi"
-          />
+          {options?.map((option) => (
+            <OptionHolder
+              optionColor={option.optionColor}
+              optionName="A"
+              className={
+                isAnswerVisible
+                  ? option.isCorrect
+                    ? "bg-green-400"
+                    : "bg-red-600"
+                  : ""
+              }
+              optionContent={option.optionContent}
+            />
+          ))}
         </div>
       </div>
     </div>

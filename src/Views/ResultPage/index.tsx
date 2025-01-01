@@ -43,19 +43,19 @@ const ResultPageView: React.FC<ResultPageViewProps> = ({
               : { scale: 1, x: 0, y: "0%", opacity: 1 }
           }
           transition={{
-            duration: 5,
+            duration: 4,
             ease: "easeInOut",
           }}
           style={{
             top: -1,
             left: 70,
           }}
-          onAnimationComplete={() => {
-            if (isAnswerVisible) {
-              setAnswerVisible(false);
-            }
-          }}
-        >
+          // onAnimationComplete={() => {
+          //   if (isAnswerVisible) {
+          //     setAnswerVisible(false);
+          //   }
+          // }}
+        > 
           <HeadingText
             text="Where is India Located?"
             className="text-2xl text-white absolute left-2 top-24 text-center font-bold"
@@ -75,7 +75,16 @@ const ResultPageView: React.FC<ResultPageViewProps> = ({
             }}
           />
         </div>
-        <div className="options">
+        <motion.div
+          initial={{ x: "100%", y: 0, opacity: 0 }}
+          animate={
+            isAnswerVisible
+              ? { x: "-100%", y: 0, opacity: 0 }
+              : { x: 0, y: 0, opacity: 1 }
+          }
+          transition={{ duration: 3, ease: "easeInOut" }}
+          className="options"
+        >
           {options?.map((option) => (
             <OptionHolder
               optionColor={option.optionColor}
@@ -90,7 +99,7 @@ const ResultPageView: React.FC<ResultPageViewProps> = ({
               optionContent={option.optionContent}
             />
           ))}
-        </div>
+        </motion.div>
       </div>
     </div>
   );

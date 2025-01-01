@@ -7,6 +7,7 @@ const ResultPageContainer: React.FC = () => {
   const [count, setCount] = useState(0);
   const [score, setScore] = useState(0);
   let newBirdTop = 173;
+
   const [isAnswerVisible, setAnswerVisible] = useState(false);
   const options = [
     {
@@ -45,6 +46,18 @@ const ResultPageContainer: React.FC = () => {
     }
     return null;
   };
+
+  // "questions": [
+  //     {
+  //       "correctOptionsIndex": 0,
+  //       "options": [
+  //         "Brendan Eich",
+  //         "Tim Berners-Lee",
+  //         "Linus Torvalds",
+  //         "Guido van Rossum"
+  //       ],
+  //       "question": "Who created JavaScript in 1995?"
+  //     },
 
   const handleKeyPress = (event: KeyboardEvent) => {
     if (isAnswerVisible) {
@@ -110,6 +123,20 @@ const ResultPageContainer: React.FC = () => {
       window.removeEventListener("keydown", handleKeyPress);
     };
   }, []);
+
+  useEffect(() => {
+    if (isAnswerVisible) {
+      setTimeout(() => {
+        loadNextQuestion();
+      }, 500);
+    }
+  }, [isAnswerVisible]);
+
+  const loadNextQuestion = () => {
+    setBirdTop(173);
+    setBirdLeft(0);
+    // logic for qs
+  };
 
   return (
     <div className="cloud-background-result">

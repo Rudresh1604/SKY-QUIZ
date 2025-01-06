@@ -18,7 +18,7 @@ const OptionHolder: React.FC<OptionHolderProps> = ({
 }) => {
   return (
     <div
-      className={`w-52 h-10 my-16 flex justify-between items-center rounded-3xl ${
+      className={`w-52 h-10 my-12 flex justify-between items-center rounded-3xl ${
         className ? className : "bg-white"
       }`}
     >
@@ -31,7 +31,7 @@ const OptionHolder: React.FC<OptionHolderProps> = ({
         </div>
         <HeadingText
           text={optionContent}
-          className="font-normal text-2xl text-center ml-2"
+          className="font-normal text-auto text-center ml-2"
         />
       </div>
     </div>
